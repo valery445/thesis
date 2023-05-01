@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+import sys, os
+import os.path as osp
+import shutil
+from datetime import date
+
+iteration_number = 2
+
+log_path = '/home/boincadm/projects/boincdocker/assimilator_log.txt'
+files_for_agregation_path = '/home/boincadm/projects/boincdocker/output_results/'
+    
+def get_batch_number(filepath):
+    filename = os.path.basename(filepath)
+    filename_without_extension = os.path.splitext(filename)[0]
+    parts = filename_without_extension.split('_')
+    batch_number = int(parts[1])
+    return batch_number
+
+if sys.argv[1]!='--error':
+
+    #I have no idea what's it for
+    target = osp.join('/results/boinc2docker',date.today().isoformat())
+    os.system('mkdir -p '+target)
+    os.system('mv %s %s'%(' '.join(sys.argv[1:]),target))
+    '''
+    #Write wu_id and tgz path to log file
+    with open(log_path, 'a') as f:
+        for arg in sys.argv[1:]:
+            f.write(arg + ' ')
+        f.write('\n')
+    
+    #Parse filename of txt, which has been extracted during validation
+    #If it's on the same iteration as the model, save it
+    txt_file_path = os.path.splitext(sys.argv[2])[0] + '.txt'
+    if get_batch_number(txt_file_path) == iteration_number:
+        shutil.copy(txt_file_path, files_for_agregation_path)
+    
+    #Delete txt file extracted during validation
+    #(tgz file is deleted by file_deleter daemon, txt isn't)
+    if os.path.exists(txt_file_path):
+        os.remove(txt_file_path)
+        '''

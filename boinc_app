@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+import sys
+
+print("IS IT WORKING?????", file=sys.stderr)
+print("IS IT WORKING????? stdout")

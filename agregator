@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+# Set the file path
+file_path = '/home/boincadm/projects/boincdocker/thesis/daemonTest.txt'
+
+# Read the integer number from the file
+with open(file_path, 'r') as f:
+    num = int(f.read().strip())
+
+# Add 1 to the number
+num += 1
+
+# Write the updated number back to the file
+with open(file_path, 'w') as f:
+    f.write(str(num))
+
+
+# Count .pkl files in /results
+
+# if 'count' > 0, do the agregation
+# # load agregation.pkl file
+# for loop 'count' times through /results
+# # load .pkl file
+# # add gradients to agregation variable
+# # add +1 to agregated count
+# # start new loop
+
+# end, save agregation.pkl
+
+# At the end check if agr_count >= iteration_end (suppose 100)
+# if true:
+# # apply grads to globalModel.pkl, 
+# # start new iteration (add +1 to var), 
+# # agr_count = 0, 
+# # delete old (all) results in /results
+# # write to log accuracy of model with new iteration (initialize model, set weights, checkaccuracy)
+
+
+# write learning.txt which has
+# # weightsNumber (validator reads it) (questionable, because validator would have to read from file every time it's invoked) (maybe bin/start will edit validator to write this var?)
+# # iteration_number (assimilator reads it to decide if result is relevant)
+# # agregated_count (agregator reads and writes to it)

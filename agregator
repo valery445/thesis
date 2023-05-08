@@ -1,19 +1,77 @@
 #!/usr/bin/env python
 
-# Set the file path
-file_path = '/home/boincadm/projects/boincdocker/thesis/daemonTest.txt'
+import os
+import pickle
+import json
+import pdb
 
-# Read the integer number from the file
-with open(file_path, 'r') as f:
-    num = int(f.read().strip())
+# Set the paths for the directories and files
+projectFolder = "/home/boincadm/projects/boincdocker"
+resultsDir = projectFolder + "/results"
+agregationFile = projectFolder + "/model/agregation.pkl"
+learningFile = projectFolder + "/model/learning.json"
+globalWeightsFile = projectFolder + "/model/globalModelWeights.pkl"
+errorLogFile = projectFolder + "/model/agregator_error_log.txt"
+iterationEnd = 2
 
-# Add 1 to the number
-num += 1
+try:
+    # Get a list of all .pkl files in the results directory
+    pklFiles = [f for f in os.listdir(resultsDir) if f.endswith('.pkl')]
+    count = len(pklFiles)
 
-# Write the updated number back to the file
-with open(file_path, 'w') as f:
-    f.write(str(num))
-
+    if count > 0:
+        # Load the agregation file
+        with open(agregationFile, 'rb') as f:
+            agregation = pickle.load(f)
+        
+        # Load each .pkl file from the results directory and update agregation
+        for file in pklFiles:
+            with open(os.path.join(resultsDir, file), 'rb') as f:
+                grad = pickle.load(f)
+            
+            for l, _ in enumerate(grad):
+                agregation[l] += grad[l]       
+        
+        # Save the updated agregation
+        with open(agregationFile, 'wb') as f:
+            pickle.dump(agregation, f)
+        
+        # Update the agregated count in the learning file
+        with open(learningFile, 'r+') as f:
+            data = json.load(f)
+            data['agregatedCount'] += count
+            f.seek(0)
+            json.dump(data, f, indent=4)
+        
+        # Delete all .pkl files in the results directory
+        for file in pklFiles:
+            os.remove(os.path.join(resultsDir, file))
+        
+        # Check if the updated agregated count is greater than or equal to iterationEnd
+        if data['agregatedCount'] >= iterationEnd:
+            # Load the global weights file
+            with open(globalWeightsFile, 'rb') as f:
+                globalWeights = pickle.load(f)
+                
+            #pdb.set_trace()
+            
+            # Update global weights using agregation and agregated count from learning file
+            for l, _ in enumerate(agregation):
+                globalWeights[l] += agregation[l] / data['agregatedCount']
+                
+            # Save the updated global weights
+            with open(globalWeightsFile, 'wb') as f:
+                pickle.dump(globalWeights, f)
+            
+            # Increment iteration number and reset agregated count to 0 in learning file
+            data['iterationNumber'] += 1
+            data['agregatedCount'] = 0
+            
+            with open(learningFile, 'w') as f:
+                json.dump(data, f, indent=4)
+except Exception as e:
+    with open(errorLogFile, 'a') as f:
+        f.write(f"An error occurred: {e}\n")
 
 # Count .pkl files in /results
 

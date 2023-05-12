@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<output_template>
+
+    <file_info>
+        <name><OUTFILE_0/>.pkl</name>
+        <generated_locally/>
+        <upload_when_present/>
+        <max_nbytes>134217728</max_nbytes> <!-- 100Mb -->
+        <url><UPLOAD_URL/></url>        
+    </file_info>
+
+    <result>
+        <file_ref>
+            <file_name><OUTFILE_0/>.pkl</file_name>
+            <open_name>shared/dirty.pkl</open_name>
+            <copy_file>1</copy_file>
+            <optional>0</optional>
+        </file_ref>
+    </result>
+
+</output_template>

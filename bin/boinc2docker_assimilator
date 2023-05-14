@@ -3,14 +3,16 @@
 import sys, os
 import os.path as osp
 import shutil
+import json
 from datetime import date
 
-iteration_number = 2
-
-log_path = '/home/boincadm/projects/boincdocker/assimilator_log.txt'
-files_for_agregation_path = '/home/boincadm/projects/boincdocker/output_results/'
+projectFolder = "/home/boincadm/projects/boincdocker"
+learningFile = projectFolder + "/model/learning.json"
+log_path = projectFolder + '/assimilator_log.txt'
+filesForAgregationPath = projectFolder + '/results/'
     
 def get_batch_number(filepath):
+    # Expects that filename = {appname}_{batch}...
     filename = os.path.basename(filepath)
     filename_without_extension = os.path.splitext(filename)[0]
     parts = filename_without_extension.split('_')
@@ -18,11 +20,30 @@ def get_batch_number(filepath):
     return batch_number
 
 if sys.argv[1]!='--error':
-
+# /home/boincadm/projects/boincdocker/upload/2fa/virtualbox_0_9387_1683918158.348862_0_r1702544496_0.pkl
     #I have no idea what's it for
-    target = osp.join('/results/boinc2docker',date.today().isoformat())
-    os.system('mkdir -p '+target)
-    os.system('mv %s %s'%(' '.join(sys.argv[1:]),target))
+    #target = osp.join('/results/boinc2docker',date.today().isoformat())
+    #os.system('mkdir -p '+target)
+    #os.system('mv %s %s'%(' '.join(sys.argv[1:]),target))
+    
+    # Get iteration number from the learning file
+    with open(learningFile, 'r') as f:
+        data = json.load(f)
+    
+    #Write wu_id and files to log file
+    with open(log_path, 'a') as f:
+        for arg in sys.argv[1:]:
+            f.write(arg + ' ')
+    
+    gradientFile = sys.argv[2]
+    if get_batch_number(gradientFile) == data['iterationNumber']:
+        shutil.copy(gradientFile, filesForAgregationPath)
+        with open(log_path, 'a') as f:
+            f.write("File transferred")
+            
+    with open(log_path, 'a') as f:
+        f.write('\n')
+    
     '''
     #Write wu_id and tgz path to log file
     with open(log_path, 'a') as f:

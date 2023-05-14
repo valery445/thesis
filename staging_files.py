@@ -9,8 +9,8 @@ from bin.boinc2docker_create_work import boinc2docker_create_work
 
 
 
-my_image = "tensorflow/tensorflow"
-#my_image = "python:3-slim"
+#my_image = "tensorflow/tensorflow"
+my_image = "python:3-slim"
 my_command = ['python', '-c']
 
 #Opens file and doubles every float number in it, writes to myOutput.txt
@@ -94,10 +94,7 @@ if len(sys.argv) == 1:
     pid = os.getpid()
     unix_time = time.time()
     architecture_name = "arch1"
-    my_args['wu_name'] = f"boinc2docker_{batch_number}_{architecture_name}_{pid}_{unix_time}"
-    my_args['rsc_memory_bound'] = 5e9
-    #my_command = ['python', '/root/shared/main.py', '/root/shared/cfg_1.json']
-    #my_command = ['python', '/root/shared/test.py']
+    #my_args['wu_name'] = f"boinc2docker_{batch_number}_{architecture_name}_{pid}_{unix_time}"
     wu = boinc2docker_create_work(image = my_image, command = my_command, create_work_args = my_args, input_files = my_input_files)
     if wu is not None: print(wu)
 else:

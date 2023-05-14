@@ -1,60 +1,37 @@
 #!/usr/bin/env python
 
-import tarfile
 import os
-import sys       
-    
-exit(0)
-    
-#Number of weights   
-arch1_N = 100
-arch2_N = 50
-log_path = '/home/boincadm/projects/boincdocker/validator_log.txt'
+import sys    
+import pickle   
+     
+logPath = '/home/boincadm/projects/boincdocker/validator_log.txt'
 
+# Write to log file
+with open(logPath, 'a') as f:
+    f.write(sys.argv[1] + ' ')
 
-#Extract tgz archive
-tgz_path = sys.argv[1]
-directory = os.path.dirname(tgz_path)
-with tarfile.open(tgz_path, 'r:gz') as tar:
-    tar.extractall(path=directory)
-    
-#Rename output file to have same filename as tgz (i.e. result name)    
-old_txt_file = os.path.join(directory, 'myOutput.txt')
-new_txt_file = os.path.join(directory, os.path.basename(tgz_path)[:-4] + '.txt')
-os.rename(old_txt_file, new_txt_file)
+     
+# Number of weights
+modelWeightsCount = 258794
 
-#Write to log file
-with open(log_path, 'a') as f:
-    f.write(tgz_path + ' ')
+# Get number of weights in file
+pklFilePath = sys.argv[1]
+with open(pklFilePath, 'rb') as f:
+    localWeights = pickle.load(f)
+localWeightsCount = sum(w.size for w in localWeights)
 
-with open(new_txt_file, 'r') as f:
-    numbers = [float(x) for x in f.read().split()]
-   
-#Extract architecture name
-filename = os.path.basename(new_txt_file)
-parts = filename.split("_")
-arch_name = parts[2]
-
-#Set how many weights to expect in valid answer
-if arch_name == "arch1":
-    N_to_check = arch1_N
-elif arch_name == "arch2":
-    N_to_check = arch2_N
-else:
-    with open(log_path, 'a') as f:
-        f.write("FAILED: WRONG ARCHITECTURE NAME" + '\n')
-    exit(1)
-
-    
-#WU is validated if the output has the same number of weights as the global model
-if len(numbers) == N_to_check:    
-    with open(log_path, 'a') as f:
-        f.write("SUCCESS" + '\n')
-            
+#/home/boincadm/projects/boincdocker/upload/1a0/virtualbox_20_8458_1683980128.4068162_0_r1520230885_0.pkl 
+# Write to log file
+#with open(logPath, 'a') as f:
+#    f.write(pklFilePath + ' ')
+  
+# WU is validated if the output has the same number of weights as the global model
+if localWeightsCount == modelWeightsCount:    
+    with open(logPath, 'a') as f:
+        f.write("SUCCESS" + '\n')  
     exit(0)
 else:
-    with open(log_path, 'a') as f:
-        f.write("FAILED: NOT ENOUGH WEIGHTS" + '\n')
-            
+    with open(logPath, 'a') as f:
+        f.write("FAILED: INCORRECT WEIGHTS COUNT" + '\n')          
     exit(1)
  

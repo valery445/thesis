@@ -1,0 +1,59 @@
+/home/boincadm/projects/boincdocker/output_results/boinc2docker_2_9684_1681316361.4276385_0_r731514996_0.tgz The file contains exactly 100 floating-point numbers.
+/home/boincadm/projects/boincdocker/output_results/boinc2docker_2_9684_1681316361.4276385_0_r731514996_0.tgz The file contains exactly 100 floating-point numbers.
+TEEEEEEEEEEEEEEEEEEEEEEEEST
+/home/boincadm/projects/boincdocker/upload/111/boinc2docker_2_7289_1681410225.4850953_0_r278036186_0.tgz The file contains exactly 100 floating-point numbers.
+/home/boincadm/projects/boincdocker/upload/30b/boinc2docker_2_7619_1681412582.6285906_0_r225816070_0.tgz The file contains exactly 100 floating-point numbers.
+/home/boincadm/projects/boincdocker/upload/148/boinc2docker_2_7818_1681412969.1401896_0_r664571684_0.tgz The file contains exactly 100 floating-point numbers.
+/home/boincadm/projects/boincdocker/upload/152/boinc2docker_2_8019_1681413311.2873569_0_r951714812_0.tgz The file contains exactly 100 floating-point numbers.
+/home/boincadm/projects/boincdocker/upload/103/boinc2docker_2_arch2_4598_1681583491.2356608_0_r495272011_0.tgz
+/home/boincadm/projects/boincdocker/upload/27/boinc2docker_2_arch2_4691_1681583531.6426456_0_r1458925407_0.tgz
+/home/boincadm/projects/boincdocker/upload/199/boinc2docker_2_arch1_4769_1681583579.6447349_0_r1609586341_0.tgz
+/home/boincadm/projects/boincdocker/upload/128/boinc2docker_2_arch2_4598_1681583491.2356608_1_r490856933_0.tgz
+/home/boincadm/projects/boincdocker/upload/394/boinc2docker_2_arch2_4691_1681583531.6426456_1_r924521486_0.tgz
+/home/boincadm/projects/boincdocker/upload/3e1/boinc2docker_2_arch1_4769_1681583579.6447349_1_r591641178_0.tgz
+/home/boincadm/projects/boincdocker/upload/27/boinc2docker_2_arch2_4691_1681583531.6426456_0_r1458925407_0.tgz
+/home/boincadm/projects/boincdocker/upload/27/boinc2docker_2_arch2_4691_1681583531.6426456_0_r1458925407_0.tgz
+SUCCESS
+/home/boincadm/projects/boincdocker/upload/27/boinc2docker_2_arch2_4691_1681583531.6426456_0_r1458925407_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/103/boinc2docker_2_arch2_4598_1681583491.2356608_0_r495272011_0.tgz /home/boincadm/projects/boincdocker/upload/103/boinc2docker_2_arch2_4598_1681583491.2356608_0_r495272011_0.tgz FAILED: NOT ENOUGH WEIGHTS
+
+/home/boincadm/projects/boincdocker/upload/103/boinc2docker_2_arch2_4598_1681583491.2356608_0_r495272011_0.tgz FAILED: NOT ENOUGH WEIGHTS
+/home/boincadm/projects/boincdocker/upload/3e1/boinc2docker_2_arch1_4769_1681583579.6447349_1_r591641178_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/23a/boinc2docker_2_arch1_4769_1681720383.971431_0_r961853923_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/11/boinc2docker_2_arch1_4845_1681720385.9550862_0_r1389248183_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/286/boinc2docker_2_arch1_4920_1681720387.1776226_0_r1157026237_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/2c/boinc2docker_2_arch1_5513_1681722681.1745481_0_r1454984893_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/3e6/boinc2docker_2_arch1_25634_1682011549.279416_0_r1808816086_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/152/boinc2docker_2_arch1_8689_1682098553.7048128_0_r1236798253_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/3e5/boinc2docker_2_arch1_8324_1682098237.3137186_0_r1062744468_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/2ef/boinc2docker_2_arch1_7884_1682096412.670048_0_r165180747_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/335/boinc2docker_2_arch1_4803_1682181266.2558525_0_r1036314315_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/236/boinc2docker_2_arch1_6026_1682184143.7842743_0_r1949226202_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/170/boinc2docker_2_arch1_5323_1682182256.0495117_0_r2106702303_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/16d/boinc2docker_2_arch1_5536_1682183417.4966497_0_r1089725733_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/3d4/boinc2docker_6279_1682184690.914868_0_r1384188766_0.tgz FAILED: WRONG ARCHITECTURE NAME
+/home/boincadm/projects/boincdocker/upload/234/boinc2docker_2_arch1_5922_1682184011.947631_0_r2017004174_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/263/boinc2docker_2_arch1_5609_1682183430.2107823_0_r2068337765_0.tgz SUCCESS
+/home/boincadm/projects/boincdocker/upload/1e7/boinc2docker_6279_1682184690.914868_1_r714171651_0.tgz FAILED: WRONG ARCHITECTURE NAME
+/home/boincadm/projects/boincdocker/thesis/globalModelWeights.pkl SUCCESS
+/media/sf_shared/localWeights.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/2b8/virtualbox_5678_1683909489.596961_0_r1294782192_0 /home/boincadm/projects/boincdocker/upload/27f/virtualbox_5926_1683909969.819967_0_r1989291497_0.txt /home/boincadm/projects/boincdocker/upload/104/virtualbox_6070_1683910225.955731_0_r465295869_0.pkl /home/boincadm/projects/boincdocker/upload/3fc/virtualbox_7377_1683913863.078593_0_r503499547_0.pkl /home/boincadm/projects/boincdocker/upload/f0/virtualbox_7778_1683915271.327232_0_r1411664762_0.pkl /home/boincadm/projects/boincdocker/upload/13b/virtualbox_9120_1683917466.695150_0_r1580716949_0.pkl /home/boincadm/projects/boincdocker/upload/34e/virtualbox_9119_1683917466.671546_0_r453048371_0.pkl /home/boincadm/projects/boincdocker/upload/151/virtualbox_9361_1683918104.537139_0_r132544456_0.pkl /home/boincadm/projects/boincdocker/upload/2fa/virtualbox_9387_1683918158.348862_0_r1702544496_0.pkl /home/boincadm/projects/boincdocker/upload/29d/virtualbox_9386_1683918158.323860_0_r1385553716_0.pkl /home/boincadm/projects/boincdocker/upload/14f/virtualbox_11835_1683918522.451600_0_r748311692_0.pkl /home/boincadm/projects/boincdocker/upload/3b1/virtualbox_13845_1683923215.469047_0_r1533219561_0.pkl /home/boincadm/projects/boincdocker/upload/1a0/virtualbox_20_8458_1683980128.4068162_0_r1520230885_0.pkl /home/boincadm/projects/boincdocker/upload/1a0/virtualbox_20_8458_1683980128.4068162_0_r1520230885_0.pkl /home/boincadm/projects/boincdocker/upload/1a0/virtualbox_20_8458_1683980128.4068162_0_r1520230885_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/1c6/virtualbox_20_8458_1683980128.4068162_1_r233226430_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/a0/virtualbox_20_9111_1683981645.8488367_0_r1267230567_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/11f/virtualbox_20_9363_1683982257.0630298_0_r976771755_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/305/virtualbox_20_9541_1683982759.5101314_0_r344905446_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/380/virtualbox_20_9541_1683982759.482758_0_r1596532650_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/190/virtualbox_20_9541_1683982759.2700534_0_r1483159465_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/3bf/virtualbox_20_9541_1683982759.292512_0_r113088034_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/358/virtualbox_23_10351_1683984170.4275842_0_r62227167_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/15b/virtualbox_23_10351_1683984170.1842628_0_r1794926779_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/352/virtualbox_24_10510_1683984542.3466535_0_r236395354_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/11b/virtualbox_23_10351_1683984170.210294_0_r252327265_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/134/virtualbox_25_12545_1683989297.0533442_0_r510566576_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/7b/virtualbox_25_12850_1683989967.9306307_0_r1484910593_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/30b/virtualbox_26_12953_1683990242.9356563_0_r1244096482_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/2e6/virtualbox_26_12953_1683990242.9810967_0_r160717598_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/12a/virtualbox_26_12953_1683990243.0062702_0_r1094388644_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/312/virtualbox_27_13166_1683990542.6472828_0_r1842603_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/9c/virtualbox_27_13166_1683990542.6760952_0_r406591564_0.pkl SUCCESS
+/home/boincadm/projects/boincdocker/upload/1d3/virtualbox_27_13166_1683990542.7058682_0_r672724950_0.pkl SUCCESS

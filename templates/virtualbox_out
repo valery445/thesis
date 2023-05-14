@@ -13,7 +13,7 @@
     <result>
         <file_ref>
             <file_name><OUTFILE_0/>.pkl</file_name>
-            <open_name>shared/dirty.pkl</open_name>
+            <open_name>shared/localGradients.pkl</open_name>
             <copy_file>1</copy_file>
             <optional>0</optional>
         </file_ref>

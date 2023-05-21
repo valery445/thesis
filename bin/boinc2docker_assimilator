@@ -20,12 +20,6 @@ def get_batch_number(filepath):
     return batch_number
 
 if sys.argv[1]!='--error':
-# /home/boincadm/projects/boincdocker/upload/2fa/virtualbox_0_9387_1683918158.348862_0_r1702544496_0.pkl
-    #I have no idea what's it for
-    #target = osp.join('/results/boinc2docker',date.today().isoformat())
-    #os.system('mkdir -p '+target)
-    #os.system('mv %s %s'%(' '.join(sys.argv[1:]),target))
-    
     # Get iteration number from the learning file
     with open(learningFile, 'r') as f:
         data = json.load(f)

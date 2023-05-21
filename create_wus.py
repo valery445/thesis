@@ -23,11 +23,14 @@ my_args['max_error_results'] = 1
 my_args['rsc_disk_bound'] = 500000000
 my_args['rsc_memory_bound'] = 2000000000
 #input_files = ('hostvm_new_ga.vdi', 'vbox_job.xml', 'boinc_app')
-input_files = ('hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json', 'globalModelWeights.pkl')
+#input_files = ('hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json', 'globalModelWeights.pkl')
+input_files = ['hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json']
 #my_args['wu_name']
 
-def create_wus(N, batch):
+def create_wus(N, batch, template):
+    my_args['wu_template'] = template
     my_args['batch'] = batch
+    input_files.append(f'globalModelWeights_{batch}.pkl')
     for i in range(N):
         pid = os.getpid()
         unix_time = time.time()
@@ -36,13 +39,14 @@ def create_wus(N, batch):
         print(my_args['wu_name'])
 
 if __name__ == "__main__": 
-    if len(sys.argv) < 3:
-        print("Error: expecting two arguments - N (number of workunits to make), batch (iteration number)")
+    if len(sys.argv) < 4:
+        print("Error: expecting three arguments - N (number of workunits to make), batch (iteration number), input template")
         sys.exit(1)
 
     N = int(sys.argv[1])
     batch = int(sys.argv[2])
-    create_wus(N, batch)
+    template = sys.argv[3]
+    create_wus(N, batch, template)
 
 '''
 if len(sys.argv) < 2:

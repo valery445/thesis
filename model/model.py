@@ -1,6 +1,6 @@
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-print("Ожидание инициализации tensorflow...")
+print("Initializing tensorflow...")
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import BatchNormalization
 from tensorflow.keras.layers import Conv2D
@@ -83,7 +83,7 @@ class Model:
 		self.opt = Adam(learning_rate=self.init_lr, decay=self.init_lr)
 
 	def prepare_dataset(self, split):
-		print("Подготовка датасета...", end="\r")
+		print("Preparing dataset...", end="\r")
 		((self._trainX, self._trainY), (self.testX, self.testY)) = mnist.load_data()
 		self.dsS = split
 
@@ -103,7 +103,7 @@ class Model:
 		self.random_dataset()
 
 	def random_dataset(self):
-		print("Формирование случайной сбалансированной части датасета...")
+		print("Making a random balanced subset of the dataset...")
 		dsCountSplitted = len(self._trainX) // self.dsS # к-во эл-тов в части датасета
 		dsCountInCat = dsCountSplitted // 10 # к-во эл-тов в каждой категории
 		dsPickIndexes = []
@@ -124,6 +124,7 @@ class Model:
 
 	def train(self, cancelTrain=False, epochs=12, batchSize=64):
 		W0 = self.model.get_weights()
+		print("Local intial weights:\n", W0[0][0][0][0])
 		#with open('/home/boincadm/projects/boincdocker/model/model.pkl', 'wb') as f:
 		#	pickle.dump(W0, f)
 		#empty = list(W0[i]-W0[i] for i,_ in enumerate(W0))
@@ -132,16 +133,17 @@ class Model:
 		
 		updCount = len(self.trainX) // batchSize
 		for epoch in range(0, epochs):
-			print("[train]\tЭпоха: {}/{}...".format(epoch + 1, epochs),end="\r\t\t\t")
+			print("[train]\tEpoch: {}/{}...".format(epoch + 1, epochs),end="\r\t\t\t")
 			epochStart = time.time()
 			for i in range(updCount):
 				start = i*batchSize
 				end = start+batchSize
 				self.step(self.trainX[start:end], self.trainY[start:end])
-				print("Пройдено батчей:", i, "из", updCount, end="\r\t\t\t")
+				#print("Completed batch:", i, "out of", updCount, end="\r\t\t\t")
+			print("Completed ", updCount, " batches")
 			epochEnd = time.time()
 			elapsed = (epochEnd - epochStart)
-			print("Эпоха завершена полностью. ->", ( (str(round(elapsed,2)) + "сек.") if elapsed < 60 else (str(round(elapsed/60,2)) + "мин.")), end="\r\t\t\t\n")
+			print("Epoch finished. ->", ( (str(round(elapsed,2)) + "sec.") if elapsed < 60 else (str(round(elapsed/60,2)) + "min.")), end="\r\t\t\t\n")
 			self.checkAccuracy() # проверить точность и внести в лог обучения
 		W = self.model.get_weights()
 		if cancelTrain: self.model.set_weights(W0)
@@ -151,15 +153,18 @@ class Model:
 	def checkAccuracy(self, tag='main', comment=None):
 		self.model.compile(optimizer=self.opt, loss=categorical_crossentropy,	metrics=["acc"])
 		(loss, acc) = self.model.evaluate(self.testX, self.testY, verbose=0)
-		print("[train] Точность обучения модели: {:.2f}%".format(acc*100))
+		print("[train] Model accuracy: {:.2f}%".format(acc*100))
 		writeLog(self.name, tag, loss, acc, comment)
 	
 	def setWeights(self, weights):
 		self.model.set_weights(weights)
+		
+	def getWeightsCustom(self):
+		return self.model.get_weights()
 
 	def applyAggGrads(self, grads, balance=None):
 		balance = [1.0]*len(grads) if balance is None else balance[:len(grads)]
-		if len(grads) != len(balance): raise Exception("Количество градиентов и коэффициентов не совпадает!")
+		if len(grads) != len(balance): raise Exception("The number of gradients and coefficients does not match!")
 		elif len(grads) <= 0 or grads == None: return None
 		# aggregate gradients & mult self balance
 		for i,grad in enumerate(grads):

@@ -5,24 +5,19 @@ import pickle
 import json
 import pdb
 import sys
-
-sys.path.append("/home/boincadm/projects/boincdocker/thesis")
+projectFolder = "/home/boincadm/projects/boincdocker"
+sys.path.append(os.path.join(projectFolder, 'thesis'))
 from create_wus import create_wus
-from db_delete_irrelevant_jobs import db_delete_irrelevant_jobs
-from update_globalWeights import update_file
-
+from db_deleteUnsentJobs import db_deleteUnsentJobs
+from makeIterationTemplate import makeIterationTemplate
+from startNewIteration import startNewIteration
 
 # Set the paths for the directories and files
-projectFolder = "/home/boincadm/projects/boincdocker"
-resultsDir = projectFolder + "/results"
-agregationFile = projectFolder + "/model/agregation.pkl"
-learningFile = projectFolder + "/model/learning.json"
-globalWeightsFile = projectFolder + "/model/globalModelWeights.pkl"
-errorLogFile = projectFolder + "/model/agregator_error_log.txt"
-logFile = projectFolder + "/model/agregator_log.txt"
-iterationEnd = 1
-newWorkunitsNumber = 3
+modelFolder = os.path.join(projectFolder, 'model')
+resultsDir = os.path.join(projectFolder, 'results')
 
+iterationEnd = 2
+newWorkunitNumber = 5
 
 try:
     # Get a list of all .pkl files in the results directory
@@ -31,28 +26,50 @@ try:
 
     if count > 0:
         # Load the agregation file
-        with open(agregationFile, 'rb') as f:
-            agregation = pickle.load(f)
+        agrFile = os.path.join(modelFolder, 'agregation.pkl')
+        with open(agrFile, 'rb') as f:
+            agr = pickle.load(f)
+        # Log agregation values before change
+        agrValues = os.path.join(modelFolder, 'logs', 'agregator_values.txt')
+        with open(agrValues, 'a') as f:
+           f.write('Agregation before:')
+           f.write(str(agr[0][0][0][0]))
+           f.write('\n')
+           f.write('New gradients:')
+           f.write('\n')
         
         # Load each .pkl file from the results directory and update agregation
+        logFile = os.path.join(modelFolder, 'logs', 'agregator_log.txt')
         for file in pklFiles:
             with open(os.path.join(resultsDir, file), 'rb') as f:
                 grad = pickle.load(f)
+
+            # Log new gradients
+            with open(agrValues, 'a') as f:
+                f.write(str(grad[0][0][0][0]))
+                f.write('\n')
             
             for l, _ in enumerate(grad):
-                agregation[l] += grad[l]
+                agr[l] += grad[l]
                 
             with open(logFile, 'a') as f:
                 f.write(file + '\n')
         
         with open(logFile, 'a') as f:
                 f.write('\n')
+                
+        # Log agregation values after change
+        with open(agrValues, 'a') as f:
+           f.write('Agregation AFTER:')
+           f.write(str(agr[0][0][0][0]))
+           f.write('\n\n')
         
         # Save the updated agregation
-        with open(agregationFile, 'wb') as f:
-            pickle.dump(agregation, f)
+        with open(agrFile, 'wb') as f:
+            pickle.dump(agr, f)
         
         # Update the agregated count in the learning file
+        learningFile = os.path.join(modelFolder, 'learning.json')
         with open(learningFile, 'r+') as f:
             data = json.load(f)
             data['agregatedCount'] += count
@@ -65,67 +82,10 @@ try:
         
         # Check if the updated agregated count is greater than or equal to iterationEnd
         if data['agregatedCount'] >= iterationEnd:
-            # Load the global weights file
-            with open(globalWeightsFile, 'rb') as f:
-                globalWeights = pickle.load(f)
-                
-            #pdb.set_trace()
-            
-            # Update global weights using agregation and agregated count from learning file
-            for l, _ in enumerate(agregation):
-                globalWeights[l] += agregation[l] / data['agregatedCount']
-                
-            # Save the updated global weights
-            with open(globalWeightsFile, 'wb') as f:
-                pickle.dump(globalWeights, f)
-            
-            # Increment iteration number and reset agregated count to 0 in learning file
-            data['iterationNumber'] += 1
-            data['agregatedCount'] = 0
-            
-            with open(learningFile, 'w') as f:
-                json.dump(data, f, indent=4)
-            
-            # Deletes results and workunits of older iteration which haven't been sent yet
-            db_delete_irrelevant_jobs("virtualbox", data['iterationNumber'] - 1)
-            # Stage new globalModelWeights.pkl
-            update_file("globalModelWeights.pkl")
-            # Create newWorkUnitNumber of wus with batch equal to iteration number
-            create_wus(newWorkunitsNumber, data['iterationNumber'])
+            startNewIteration(projectFolder, agr, newWorkunitNumber)
             
                
 except Exception as e:
+    errorLogFile = os.path.join(modelFolder, 'logs', 'agregator_error_log.txt')
     with open(errorLogFile, 'a') as f:
         f.write(f"An error occurred: {e}\n")
-
-# Count .pkl files in /results
-
-# if 'count' > 0, do the agregation
-# # load agregation.pkl file
-# for loop 'count' times through /results
-# # load .pkl file
-# # add gradients to agregation variable
-# # add +1 to agregated count
-# # start new loop
-
-# end, save agregation.pkl
-
-# At the end check if agr_count >= iteration_end (suppose 100)
-# if true:
-# # apply grads to globalModel.pkl, 
-# # start new iteration (add +1 to var), 
-# # agr_count = 0, 
-# # delete old (all) results in /results
-# # write to log accuracy of model with new iteration (initialize model, set weights, checkaccuracy)
-
-
-# write learning.txt which has
-# # weightsNumber (validator reads it) (questionable, because validator would have to read from file every time it's invoked) (maybe bin/start will edit validator to write this var?)
-# # iteration_number (assimilator reads it to decide if result is relevant)
-# # agregated_count (agregator reads and writes to it)
-
-
-# Function create_workunits(N) - N is the number of wu's to create
-# arguments are given, also appname is given, input files are given and stages
-# should call bin/create_work args file1 file2 file3 ... to make one wu
-# after it makes N wus, go into database WU table, and modify it so old unsent results do not get sent

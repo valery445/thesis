@@ -1,0 +1,11 @@
+<version>
+
+   <file>
+      <physical_name>vboxwrapper_26206_x86_64-apple-darwin</physical_name>
+      <main_program/>
+   </file>
+
+   <dont_throttle/> 
+   <needs_network/>
+   
+</version>

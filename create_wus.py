@@ -5,12 +5,14 @@ import model
 import pdb
 import sys
 import time
-projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
-sys.path.append(os.path.join(projectFolder, 'py/Boinc'))
-sys.path.append(os.path.join(projectFolder, 'bin'))
-#sys.path.append('/home/boincadm/projects/boincdocker')
+import subprocess
+from itertools import chain
 
-from create_work import create_work
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
+#sys.path.append(os.path.join(projectFolder, 'py/Boinc'))
+#sys.path.append(os.path.join(projectFolder, 'bin'))
+
+#from create_work import create_work
 
 # Function create_workunits(N) - N is the number of wu's to create
 # arguments are given, also appname is given, input files are given and stages
@@ -27,6 +29,20 @@ my_args['rsc_memory_bound'] = 2000000000
 #input_files = ('hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json', 'globalModelWeights.pkl')
 input_files = ['hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json']
 #my_args['wu_name']
+
+
+# Function from create_work.py by boinc2docker
+def create_work(appname,create_work_args,input_files):
+    """
+    Calls bin/create_work with extra args specified by create_work_args
+    """
+    return subprocess.check_output((['bin/create_work','--appname',appname]+
+                           list(chain(*(['--%s'%k,'%s'%v] for k,v in create_work_args.items())))+
+                           [i for i in input_files]),
+                           
+                          cwd=projectFolder)
+
+
 
 def create_wus(N, batch, template):
     my_args['wu_template'] = template
@@ -49,15 +65,4 @@ if __name__ == "__main__":
     batch = int(sys.argv[2])
     template = sys.argv[3]
     create_wus(N, batch, template)
-
-'''
-if len(sys.argv) < 2:
-    print("Error: expecting an argument - number of workunits to make")
-    sys.exit(1)
-
-n = int(sys.argv[1])
-
-for i in range(n):
-    autowu_name = create_work("virtualbox", my_args, input_files)
-    print(autowu_name)
-'''
+    

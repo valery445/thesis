@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+
+import os
+import sys    
+import pickle   
+     
+logPath = '/home/boincadm/projects/boincdocker/validator_log.txt'
+
+# Write to log file
+with open(logPath, 'a') as f:
+    f.write(sys.argv[1] + ' ')
+
+     
+# Number of weights
+modelWeightsCount = 258794
+
+# Get number of weights in file
+pklFilePath = sys.argv[1]
+with open(pklFilePath, 'rb') as f:
+    localWeights = pickle.load(f)
+localWeightsCount = sum(w.size for w in localWeights)
+
+#/home/boincadm/projects/boincdocker/upload/1a0/virtualbox_20_8458_1683980128.4068162_0_r1520230885_0.pkl 
+# Write to log file
+#with open(logPath, 'a') as f:
+#    f.write(pklFilePath + ' ')
+  
+# WU is validated if the output has the same number of weights as the global model
+if localWeightsCount == modelWeightsCount:    
+    with open(logPath, 'a') as f:
+        f.write("SUCCESS" + '\n')  
+    exit(0)
+else:
+    with open(logPath, 'a') as f:
+        f.write("FAILED: INCORRECT WEIGHTS COUNT" + '\n')          
+    exit(1)
+ 

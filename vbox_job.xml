@@ -1,0 +1,8 @@
+<vbox_job>
+    <memory_size_mb>15000</memory_size_mb>
+    <os_name>Linux26_64</os_name>
+    <enable_shared_directory/>
+    <enable_network/>
+    <completion_trigger_file>completion_trigger_file</completion_trigger_file>
+    <multiattach_vdi_file>hostvm_learning.vdi</multiattach_vdi_file>
+</vbox_job>

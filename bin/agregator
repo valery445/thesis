@@ -1,0 +1,91 @@
+#!/usr/bin/env python
+
+import os
+import pickle
+import json
+import pdb
+import sys
+projectFolder = "/home/boincadm/projects/boincdocker"
+sys.path.append(os.path.join(projectFolder, 'thesis'))
+from create_wus import create_wus
+from db_deleteUnsentJobs import db_deleteUnsentJobs
+from makeIterationTemplate import makeIterationTemplate
+from startNewIteration import startNewIteration
+
+# Set the paths for the directories and files
+modelFolder = os.path.join(projectFolder, 'model')
+resultsDir = os.path.join(projectFolder, 'results')
+
+iterationEnd = 2
+newWorkunitNumber = 5
+
+try:
+    # Get a list of all .pkl files in the results directory
+    pklFiles = [f for f in os.listdir(resultsDir) if f.endswith('.pkl')]
+    count = len(pklFiles)
+
+    if count > 0:
+        # Load the agregation file
+        agrFile = os.path.join(modelFolder, 'agregation.pkl')
+        with open(agrFile, 'rb') as f:
+            agr = pickle.load(f)
+        # Log agregation values before change
+        agrValues = os.path.join(modelFolder, 'logs', 'agregator_values.txt')
+        with open(agrValues, 'a') as f:
+           f.write('Agregation before:')
+           f.write(str(agr[0][0][0][0]))
+           f.write('\n')
+           f.write('New gradients:')
+           f.write('\n')
+        
+        # Load each .pkl file from the results directory and update agregation
+        logFile = os.path.join(modelFolder, 'logs', 'agregator_log.txt')
+        for file in pklFiles:
+            with open(os.path.join(resultsDir, file), 'rb') as f:
+                grad = pickle.load(f)
+
+            # Log new gradients
+            with open(agrValues, 'a') as f:
+                f.write(str(grad[0][0][0][0]))
+                f.write('\n')
+            
+            for l, _ in enumerate(grad):
+                agr[l] += grad[l]
+                
+            with open(logFile, 'a') as f:
+                f.write(file + '\n')
+        
+        with open(logFile, 'a') as f:
+                f.write('\n')
+                
+        # Log agregation values after change
+        with open(agrValues, 'a') as f:
+           f.write('Agregation AFTER:')
+           f.write(str(agr[0][0][0][0]))
+           f.write('\n\n')
+        
+        # Save the updated agregation
+        with open(agrFile, 'wb') as f:
+            pickle.dump(agr, f)
+        
+        # Update the agregated count in the learning file
+        learningFile = os.path.join(modelFolder, 'learning.json')
+        with open(learningFile, 'r+') as f:
+            data = json.load(f)
+            data['agregatedCount'] += count
+            f.seek(0)
+            json.dump(data, f, indent=4)
+        
+        # Delete all .pkl files in the results directory
+        for file in pklFiles:
+            os.remove(os.path.join(resultsDir, file))
+        
+        # Check if the updated agregated count is greater than or equal to iterationEnd
+        if data['agregatedCount'] >= iterationEnd:
+            startNewIteration(projectFolder, agr, newWorkunitNumber)
+            
+               
+except Exception as e:
+    errorLogFile = os.path.join(modelFolder, 'logs', 'agregator_error_log.txt')
+    with open(errorLogFile, 'a') as f:
+        f.write(f"An error occurred: {e}\n")

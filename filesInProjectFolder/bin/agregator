@@ -5,8 +5,7 @@ import pickle
 import json
 import pdb
 import sys
-projectFolder = "/home/boincadm/projects/boincdocker"
-url = 'http://109.63.253.178/remote/'
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(os.path.join(projectFolder, 'thesis'))
 from startNewIteration import startNewIteration
 
@@ -80,7 +79,7 @@ try:
         
         # Check if the updated agregated count is greater than or equal to iterationEnd
         if data['agregatedCount'] >= iterationEnd:
-            startNewIteration(projectFolder, url, agr, newWorkunitNumber)
+            startNewIteration(agr, newWorkunitNumber)
             
                
 except Exception as e:

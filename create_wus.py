@@ -5,7 +5,7 @@ import model
 import pdb
 import sys
 import time
-projectFolder = '/home/boincadm/projects/boincdocker'
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
 sys.path.append(os.path.join(projectFolder, 'py/Boinc'))
 sys.path.append(os.path.join(projectFolder, 'bin'))
 #sys.path.append('/home/boincadm/projects/boincdocker')

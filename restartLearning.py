@@ -8,9 +8,8 @@ from db_deleteUnsentJobs import db_deleteUnsentJobs
 from makeIterationTemplate import makeIterationTemplate
 from create_wus import create_wus
 
-projectFolder = '/home/boincadm/projects/boincdocker'
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
 modelFolder = os.path.join(projectFolder, 'thesis/model')
-url = 'http://109.63.253.178/remote/'
 
 # Copy empty.pkl to agregation.pkl
 shutil.copy(os.path.join(modelFolder, 'defaults', 'empty.pkl'),
@@ -38,7 +37,7 @@ with open(os.path.join(modelFolder, 'learning.json'), 'w') as f:
 # Delete virtualbox_ files and call makeIterationTemplate function
 for filename in glob.glob(os.path.join(modelFolder, 'iterationTemplates', 'virtualbox_*')):
     os.remove(filename)
-template = makeIterationTemplate(projectFolder, url, 1)
+template = makeIterationTemplate(1)
 
 # Empty log files
 for filename in ['agregator_error_log.txt', 'agregator_log.txt', 'agregator_values.txt', 'new_iteration_values.txt']:

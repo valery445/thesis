@@ -2,7 +2,7 @@ import os
 import subprocess
 import sys
 
-projectFolder = '/home/boincadm/projects/boincdocker'
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
 inputFilesFolder = os.path.join(projectFolder, 'thesis/inputFiles')
 
 if len(sys.argv) < 2:

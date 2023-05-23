@@ -6,7 +6,7 @@ import shutil
 import json
 from datetime import date
 
-projectFolder = "/home/boincadm/projects/boincdocker"
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 learningFile = os.path.join(projectFolder, 'thesis/model/learning.json')
 #log_path = os.path.join(projectFolder, 'assimilator_log.txt')
 filesForAgregationPath = os.path.join(projectFolder, 'thesis/model/results')

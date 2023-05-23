@@ -2,8 +2,12 @@ import sys
 import os
 from textwrap import dedent
 
+projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
+
+url = 'http://109.63.253.178/remote/'
+
 # TODO: pull the template from templates/virtualbox_in?
-def makeIterationTemplate(projectFolder, url, iteration):
+def makeIterationTemplate(iteration):
     template = """<?xml version="1.0"?>
 
 <input_template>
@@ -137,11 +141,9 @@ def makeIterationTemplate(projectFolder, url, iteration):
     return filename
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        print("Error: expecting three arguments - projectFolderPath, remote_url and iteration number")
+    if len(sys.argv) < 2:
+        print("Error: expecting one argument - iteration number")
         sys.exit(1)
     
-    projectFolder = sys.argv[1]
-    iteration = sys.argv[2]
-    url = sys.argv[3]
-    makeIterationTemplate(projectFolder, url, iteration)
+    iteration = sys.argv[1]
+    makeIterationTemplate(iteration)

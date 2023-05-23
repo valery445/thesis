@@ -8,9 +8,10 @@ from create_wus import create_wus
 from db_deleteUnsentJobs import db_deleteUnsentJobs
 from makeIterationTemplate import makeIterationTemplate
 
-def startNewIteration(projectFolder, agr, newWorkunitNumber):
+# TODO: Delete old iteration's: template and .pkl file
+def startNewIteration(projectFolder, url, agr, newWorkunitNumber):
     # Set the paths for the directories and files
-    modelFolder = os.path.join(projectFolder, 'model')
+    modelFolder = os.path.join(projectFolder, 'thesis/model')
     learningFile = os.path.join(modelFolder, 'learning.json')
     with open(learningFile, 'r') as f:
         data = json.load(f)
@@ -71,6 +72,6 @@ def startNewIteration(projectFolder, agr, newWorkunitNumber):
     subprocess.check_output([shell_script] + args)
             
     # Make new input template
-    template = makeIterationTemplate(projectFolder, data['iterationNumber'])
+    template = makeIterationTemplate(projectFolder, url, data['iterationNumber'])
     # Create newWorkUnitNumber of wus with batch equal to iteration number and new template
     create_wus(newWorkunitNumber, data['iterationNumber'], template)

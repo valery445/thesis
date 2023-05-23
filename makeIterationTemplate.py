@@ -2,7 +2,8 @@ import sys
 import os
 from textwrap import dedent
 
-def makeIterationTemplate(projectFolder, iteration):
+# TODO: pull the template from templates/virtualbox_in?
+def makeIterationTemplate(projectFolder, url, iteration):
     template = """<?xml version="1.0"?>
 
 <input_template>
@@ -12,7 +13,10 @@ def makeIterationTemplate(projectFolder, iteration):
         <sticky/>
         <no_delete/>
         <gzip/>
-        <gzipped_nbytes>5 274 728 227</gzipped_nbytes>
+        <gzipped_nbytes>5274728227</gzipped_nbytes>
+        <url>{url}</url>
+        <md5_cksum>67e8b22c80ea31ed7dcc98452f0e68ed 10159652864</md5_cksum>
+        <nbytes>10 159 652 864</nbytes>
     </file_info>
     <file_info>
         <number>1</number>
@@ -96,18 +100,48 @@ def makeIterationTemplate(projectFolder, iteration):
     
 </input_template>
     """
-    newTemplate = dedent(template).format(iteration=iteration)
-    filename = os.path.join("model/iterationTemplates/", f"virtualbox_in_{iteration}")
+    newTemplate = dedent(template).format(iteration=iteration, url=url)
+    filename = os.path.join("thesis/model/iterationTemplates/", f"virtualbox_in_{iteration}")
+    '''
+    <file_info>
+        <number>0</number>
+        <sticky/>
+        <no_delete/>
+        <gzip/>
+        <gzipped_nbytes>5274728227</gzipped_nbytes>
+        <url>http://109.63.253.178/remote/</url>
+        <md5_cksum>67e8b22c80ea31ed7dcc98452f0e68ed 10159652864</md5_cksum>
+        <nbytes>10159652864</nbytes>
+    </file_info>
+    
+    
+    <file_info>
+        <number>9</number>
+        <no_delete/>
+        <gzip/>
+        <gzipped_nbytes>464</gzipped_nbytes>
+        <url>http://109.63.253.178/remote/</url>
+        <md5_cksum>b9b242eb374df9087bdaaca7d719dd75</md5_cksum>
+        <nbytes>1056</nbytes>
+    </file_info>
+    
+    <file_ref>
+            <file_number>9</file_number>
+            <open_name>shared/output.txt</open_name>
+            <copy_file/>
+        </file_ref>
+    '''
 
     with open(os.path.join(projectFolder, filename), "w") as f:
         f.write(newTemplate)
     return filename
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Error: expecting two arguments - projectFolderPath and iteration number")
+    if len(sys.argv) < 4:
+        print("Error: expecting three arguments - projectFolderPath, remote_url and iteration number")
         sys.exit(1)
     
     projectFolder = sys.argv[1]
     iteration = sys.argv[2]
-    makeIterationTemplate(projectFolder, iteration)
+    url = sys.argv[3]
+    makeIterationTemplate(projectFolder, url, iteration)

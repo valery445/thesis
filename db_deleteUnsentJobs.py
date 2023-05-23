@@ -70,4 +70,4 @@ if __name__ == "__main__":
 
     appname = sys.argv[1]
     batch = int(sys.argv[2])
-    print(db_delete_irrelevant_jobs(appname, batch))
+    print(db_deleteUnsentJobs(appname, batch))

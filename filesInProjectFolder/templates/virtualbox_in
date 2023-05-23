@@ -7,10 +7,7 @@
         <sticky/>
         <no_delete/>
         <gzip/>
-        <gzipped_nbytes>5274728227</gzipped_nbytes>
-        <url>http://109.63.253.178/remote/</url>
-        <md5_cksum>67e8b22c80ea31ed7dcc98452f0e68ed 10159652864</md5_cksum>
-        <nbytes>10 159 652 864</nbytes>
+        <gzipped_nbytes>5 274 728 227</gzipped_nbytes>
     </file_info>
     <file_info>
         <number>1</number>
@@ -44,7 +41,7 @@
         <number>8</number>
         <no_delete/>
     </file_info>
-
+    
     <workunit>
         <file_ref>
             <file_number>0</file_number>
@@ -87,9 +84,9 @@
         </file_ref>
         <file_ref>
             <file_number>8</file_number>
-            <open_name>shared/globalModelWeights_1.pkl</open_name>
+            <open_name>shared/globalModelWeights.pkl</open_name>
             <copy_file/>
         </file_ref>
     </workunit>
-
+    
 </input_template>

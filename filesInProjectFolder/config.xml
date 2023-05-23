@@ -105,12 +105,6 @@
             <disabled>0</disabled>
         </task>
         <task>
-            <period>2 minutes</period>
-            <output>daemon_test.out</output>
-            <cmd>daemon_test</cmd>
-            <disabled>1</disabled>
-        </task>
-        <task>
             <period>1 minute</period>
             <output>agregator.out</output>
             <cmd>agregator</cmd>
@@ -128,10 +122,10 @@
             <cmd>file_deleter -d 3 --preserve_result_files</cmd>
         </daemon>
         <daemon>
-            <cmd>script_assimilator --app virtualbox --script "boinc2docker_assimilator wu_id files"</cmd>
+            <cmd>script_assimilator --app virtualbox --script "virtualbox_assimilator wu_id files"</cmd>
         </daemon>
         <daemon>
-            <cmd>script_validator --app virtualbox --init_script "my_validator files"</cmd>
+            <cmd>script_validator --app virtualbox --init_script "virtualbox_validator files"</cmd>
         </daemon>
     </daemons>
 </boinc>

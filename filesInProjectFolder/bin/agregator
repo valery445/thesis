@@ -6,17 +6,15 @@ import json
 import pdb
 import sys
 projectFolder = "/home/boincadm/projects/boincdocker"
+url = 'http://109.63.253.178/remote/'
 sys.path.append(os.path.join(projectFolder, 'thesis'))
-from create_wus import create_wus
-from db_deleteUnsentJobs import db_deleteUnsentJobs
-from makeIterationTemplate import makeIterationTemplate
 from startNewIteration import startNewIteration
 
 # Set the paths for the directories and files
-modelFolder = os.path.join(projectFolder, 'model')
-resultsDir = os.path.join(projectFolder, 'results')
+modelFolder = os.path.join(projectFolder, 'thesis/model')
+resultsDir = os.path.join(projectFolder, 'thesis/model/results')
 
-iterationEnd = 2
+iterationEnd = 3
 newWorkunitNumber = 5
 
 try:
@@ -82,7 +80,7 @@ try:
         
         # Check if the updated agregated count is greater than or equal to iterationEnd
         if data['agregatedCount'] >= iterationEnd:
-            startNewIteration(projectFolder, agr, newWorkunitNumber)
+            startNewIteration(projectFolder, url, agr, newWorkunitNumber)
             
                
 except Exception as e:

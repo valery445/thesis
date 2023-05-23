@@ -1,5 +1,5 @@
 <vbox_job>
-    <memory_size_mb>15000</memory_size_mb>
+    <memory_size_mb>4000</memory_size_mb>
     <os_name>Linux26_64</os_name>
     <enable_shared_directory/>
     <enable_network/>

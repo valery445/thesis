@@ -7,9 +7,9 @@ import json
 from datetime import date
 
 projectFolder = "/home/boincadm/projects/boincdocker"
-learningFile = projectFolder + "/model/learning.json"
-log_path = projectFolder + '/assimilator_log.txt'
-filesForAgregationPath = projectFolder + '/results/'
+learningFile = os.path.join(projectFolder, 'thesis/model/learning.json')
+#log_path = os.path.join(projectFolder, 'assimilator_log.txt')
+filesForAgregationPath = os.path.join(projectFolder, 'thesis/model/results')
     
 def get_batch_number(filepath):
     # Expects that filename = {appname}_{batch}...
@@ -25,18 +25,18 @@ if sys.argv[1]!='--error':
         data = json.load(f)
     
     #Write wu_id and files to log file
-    with open(log_path, 'a') as f:
-        for arg in sys.argv[1:]:
-            f.write(arg + ' ')
+    #with open(log_path, 'a') as f:
+    #    for arg in sys.argv[1:]:
+    #        f.write(arg + ' ')
     
     gradientFile = sys.argv[2]
     if get_batch_number(gradientFile) == data['iterationNumber']:
         shutil.copy(gradientFile, filesForAgregationPath)
-        with open(log_path, 'a') as f:
-            f.write("File transferred")
+        #with open(log_path, 'a') as f:
+        #    f.write("File transferred")
             
-    with open(log_path, 'a') as f:
-        f.write('\n')
+    #with open(log_path, 'a') as f:
+    #    f.write('\n')
     
     '''
     #Write wu_id and tgz path to log file

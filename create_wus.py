@@ -5,9 +5,8 @@ import model
 import pdb
 import sys
 import time
-projectFolder = '/home/boincadm/projects/boincdocker'
-sys.path.append(os.path.join(projectFolder, 'py/Boinc'))
-sys.path.append(os.path.join(projectFolder, 'bin'))
+sys.path.append('/home/boincadm/projects/boincdocker/py/Boinc')
+sys.path.append('/home/boincadm/projects/boincdocker/bin')
 #sys.path.append('/home/boincadm/projects/boincdocker')
 
 from create_work import create_work
@@ -32,7 +31,6 @@ def create_wus(N, batch, template):
     my_args['wu_template'] = template
     my_args['batch'] = batch
     input_files.append(f'globalModelWeights_{batch}.pkl')
-    #input_files.append('output.txt')
     for i in range(N):
         pid = os.getpid()
         unix_time = time.time()

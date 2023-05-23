@@ -9,40 +9,38 @@ from makeIterationTemplate import makeIterationTemplate
 from create_wus import create_wus
 
 projectFolder = '/home/boincadm/projects/boincdocker'
-modelFolder = os.path.join(projectFolder, 'thesis/model')
-url = 'http://109.63.253.178/remote/'
 
 # Copy empty.pkl to agregation.pkl
-shutil.copy(os.path.join(modelFolder, 'defaults', 'empty.pkl'),
-            os.path.join(modelFolder, 'agregation.pkl'))
+shutil.copy(os.path.join(projectFolder, 'model', 'defaults', 'empty.pkl'),
+            os.path.join(projectFolder, 'model', 'agregation.pkl'))
 
 # Delete globalModelWeights files and copy model_initial.pkl to globalModelWeights_1.pkl
-for filename in glob.glob(os.path.join(modelFolder, 'globalModels', 'globalModelWeights*.pkl')):
+for filename in glob.glob(os.path.join(projectFolder, 'model', 'globalModels', 'globalModelWeights*.pkl')):
     os.remove(filename)
-shutil.copy(os.path.join(modelFolder, 'defaults', 'model_initial.pkl'),
-            os.path.join(modelFolder, 'globalModels', 'globalModelWeights_1.pkl'))
+shutil.copy(os.path.join(projectFolder, 'model', 'defaults', 'model_initial.pkl'),
+            os.path.join(projectFolder, 'model', 'globalModels', 'globalModelWeights_1.pkl'))
             
 # Delete files in /results that haven't yet been agregated
-for filename in glob.glob(os.path.join(modelFolder, 'results', '*.pkl')):
+for filename in glob.glob(os.path.join(projectFolder, 'results', '*.pkl')):
     os.remove(filename)
 
 # Call db_deleteUnsentJobs function and update learning.json
-with open(os.path.join(modelFolder, 'learning.json'), 'r') as f:
+with open(os.path.join(projectFolder, 'model', 'learning.json'), 'r') as f:
     data = json.load(f)
 db_deleteUnsentJobs('virtualbox', data['iterationNumber'])
 data['agregatedCount'] = 0
 data['iterationNumber'] = 1
-with open(os.path.join(modelFolder, 'learning.json'), 'w') as f:
+with open(os.path.join(projectFolder, 'model', 'learning.json'), 'w') as f:
     json.dump(data, f, indent=4)
 
 # Delete virtualbox_ files and call makeIterationTemplate function
-for filename in glob.glob(os.path.join(modelFolder, 'iterationTemplates', 'virtualbox_*')):
+for filename in glob.glob(os.path.join(projectFolder, 'model', 'iterationTemplates', 'virtualbox_*')):
     os.remove(filename)
-template = makeIterationTemplate(projectFolder, url, 1)
+template = makeIterationTemplate(projectFolder, 1)
 
 # Empty log files
 for filename in ['agregator_error_log.txt', 'agregator_log.txt', 'agregator_values.txt', 'new_iteration_values.txt']:
-    open(os.path.join(modelFolder, 'logs', filename), 'w').close()
+    open(os.path.join(projectFolder, 'model', 'logs', filename), 'w').close()
 
 # Delete globalModelWeights files in download directory
 for filename in glob.glob(os.path.join(projectFolder, 'download', '**', 'globalModelWeights_*'), recursive=True):
@@ -52,7 +50,7 @@ for filename in glob.glob(os.path.join(projectFolder, 'download', '**', 'globalM
 # Stage global model file
 os.chdir(projectFolder)
 shell_script = './bin/stage_file'
-args = ['--copy', os.path.join(modelFolder, 'globalModels', 'globalModelWeights_1.pkl')]
+args = ['--copy', os.path.join(projectFolder, 'model', 'globalModels', 'globalModelWeights_1.pkl')]
 subprocess.check_output([shell_script] + args)
 
 print("The learning has been successfully restarted to 1(first) iteration!")

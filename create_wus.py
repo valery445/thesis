@@ -11,24 +11,18 @@ from itertools import chain
 projectFolder = os.path.realpath(os.path.join(os.path.dirname(__file__),'..'))
 #sys.path.append(os.path.join(projectFolder, 'py/Boinc'))
 #sys.path.append(os.path.join(projectFolder, 'bin'))
-
 #from create_work import create_work
-
-# Function create_workunits(N) - N is the number of wu's to create
-# arguments are given, also appname is given, input files are given and stages
-# should call bin/create_work args file1 file2 file3 ... to make one wu
-# after it makes N wus, go into database WU table, and modify it so old unsent results do not get sent
 
 my_args=dict()
 my_args['target_nresults'] = 1
 my_args['min_quorum'] = 1
 my_args['max_error_results'] = 1
-my_args['rsc_disk_bound'] = 500000000
-my_args['rsc_memory_bound'] = 2000000000
-#input_files = ('hostvm_new_ga.vdi', 'vbox_job.xml', 'boinc_app')
-#input_files = ('hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json', 'globalModelWeights.pkl')
+# Disk memory in bytes
+my_args['rsc_disk_bound'] = 500_000_000
+# Physical memory in bytes
+my_args['rsc_memory_bound'] = 2_000_000_000
+# Input files should be put in the same order as input_template!
 input_files = ['hostvm_learning.vdi', 'vbox_job.xml', 'boinc_app', 'sharedModel.h5', 'main.py', 'model.py', 'nodeLogger.py', 'cfg_1.json']
-#my_args['wu_name']
 
 
 # Function from create_work.py by boinc2docker
@@ -43,12 +37,10 @@ def create_work(appname,create_work_args,input_files):
                           cwd=projectFolder)
 
 
-
 def create_wus(N, batch, template):
     my_args['wu_template'] = template
     my_args['batch'] = batch
     input_files.append(f'globalModelWeights_{batch}.pkl')
-    #input_files.append('output.txt')
     for i in range(N):
         pid = os.getpid()
         unix_time = time.time()

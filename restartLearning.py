@@ -25,7 +25,7 @@ shutil.copy(os.path.join(modelFolder, 'defaults', 'model_initial.pkl'),
 for filename in glob.glob(os.path.join(modelFolder, 'results', '*.pkl')):
     os.remove(filename)
 
-# Call db_deleteUnsentJobs function and update learning.json
+# Call db_deleteUnsentJobs function and reset learning.json
 with open(os.path.join(modelFolder, 'learning.json'), 'r') as f:
     data = json.load(f)
 db_deleteUnsentJobs('virtualbox', data['iterationNumber'])
@@ -34,7 +34,7 @@ data['iterationNumber'] = 1
 with open(os.path.join(modelFolder, 'learning.json'), 'w') as f:
     json.dump(data, f, indent=4)
 
-# Delete virtualbox_ files and call makeIterationTemplate function
+# Delete iteration templates and call makeIterationTemplate function to create for iteration 1
 for filename in glob.glob(os.path.join(modelFolder, 'iterationTemplates', 'virtualbox_*')):
     os.remove(filename)
 template = makeIterationTemplate(1)
@@ -43,7 +43,7 @@ template = makeIterationTemplate(1)
 for filename in ['agregator_error_log.txt', 'agregator_log.txt', 'agregator_values.txt', 'new_iteration_values.txt']:
     open(os.path.join(modelFolder, 'logs', filename), 'w').close()
 
-# Delete globalModelWeights files in download directory
+# Delete staged globalModelWeights files in download directory
 for filename in glob.glob(os.path.join(projectFolder, 'download', '**', 'globalModelWeights_*'), recursive=True):
     if filename.endswith('.pkl') or filename.endswith('.pkl.md5'):
         os.remove(filename)

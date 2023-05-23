@@ -12,6 +12,9 @@
  
 # Properly add virtualbox as an app for all platforms
 
+# Modify makeIterationTemplate.py to set url to your remote url
+# Modify db_deleteUnsentJobs to set db_name, username and password
+
 # Stage input files:
 python stageInputFiles.py
 

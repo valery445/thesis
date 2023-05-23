@@ -3,10 +3,10 @@ import subprocess
 import sys
 
 projectFolder = '/home/boincadm/projects/boincdocker'
-modelFolder = os.path.join(projectFolder, 'model')
+inputFilesFolder = os.path.join(projectFolder, 'thesis/inputFiles')
 
 if len(sys.argv) < 2:
-    print(f"Error: expecting one argument - file in {modelFolder}")
+    print(f"Error: expecting one argument - file in {inputFilesFolder}")
     sys.exit(1)
     
 filename = sys.argv[1]
@@ -14,8 +14,8 @@ filename = sys.argv[1]
 # Change the working directory
 os.chdir(projectFolder)
 
-# Check if the filename exists in the model directory
-filePath = os.path.join(modelFolder, filename)
+# Check if the filename exists in the directory
+filePath = os.path.join(inputFilesFolder, filename)
 if not os.path.exists(filePath):
     raise FileNotFoundError(f"File {filePath} does not exist")
 

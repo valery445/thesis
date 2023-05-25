@@ -13,8 +13,12 @@ from startNewIteration import startNewIteration
 modelFolder = os.path.join(projectFolder, 'thesis/model')
 resultsDir = os.path.join(projectFolder, 'thesis/model/results')
 
+# Number of agregated workunits to finish iteration
 iterationEnd = 3
+# Number of workunits to make on new iteration
 newWorkunitNumber = 5
+# How many iterations to do overall
+iterationsToDo = 3
 
 try:
     # Get a list of all .pkl files in the results directory
@@ -79,7 +83,10 @@ try:
         
         # Check if the updated agregated count is greater than or equal to iterationEnd
         if data['agregatedCount'] >= iterationEnd:
-            startNewIteration(agr, newWorkunitNumber)
+            if data['iterationNumber'] + 1 == iterationsToDo:
+                startNewIteration(agr, 0) 
+            else:
+                startNewIteration(agr, newWorkunitNumber)
             
                
 except Exception as e:

@@ -19,8 +19,8 @@ def makeIterationTemplate(iteration):
         <gzip/>
         <gzipped_nbytes>5274728227</gzipped_nbytes>
         <url>{url}</url>
-        <md5_cksum>67e8b22c80ea31ed7dcc98452f0e68ed 10159652864</md5_cksum>
-        <nbytes>10 159 652 864</nbytes>
+        <md5_cksum>67e8b22c80ea31ed7dcc98452f0e68ed</md5_cksum>
+        <nbytes>10159652864</nbytes>
     </file_info>
     <file_info>
         <number>1</number>
